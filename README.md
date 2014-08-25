@@ -21,7 +21,7 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ## Bloccit: a Reddit clone to teach the fundamentals of web development and Rails 4.
+* ## Dangus-Bloccit: a Reddit clone to teach the fundamentals of web development and Rails 4.
 
 Made with my mentor at [Bloc](https://www.bloc.io/mentors/michael-pell)
 
