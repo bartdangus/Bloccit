@@ -1,3 +1,5 @@
-<h1>Welcome to Dangus Bloccit</h1>
-<p>This is the home page for Dangus Bloccit.</p>
+<h1>All Posts</h1>
+<% @posts.each do |post| %>
+  <p><%= link_to post.title, post_path(post.id) %></p>
+  <% end %>
 
