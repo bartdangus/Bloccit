@@ -7,7 +7,7 @@
     <%= devise_error_messages! %>
     <div class="form-group">
       <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control', placeholder : "Enter email yo" %>
+      <%= f.email_field :email, class: 'form-control', placeholder: "Enter email yo" %>
     </div>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div class="form-group">
