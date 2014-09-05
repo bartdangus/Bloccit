@@ -44,6 +44,7 @@ end
 gem 'devise'
 gem 'figaro'
 gem 'pundit'
+gem 'simple_form'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
