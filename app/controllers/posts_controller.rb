@@ -2,8 +2,8 @@ class PostsController < ApplicationController
   def show
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:id])
-    
-   
+    @comments = @post.comments
+    @comment = Comment.new 
   end
 
   def new
@@ -38,7 +38,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     authorize @post
 
-    if @post.update_attributes(post_params)
+    if @post.update_attributes (params[:post])
       flash[:notice] = "Post was updated."
       redirect_to [@topic, @post]
     else
