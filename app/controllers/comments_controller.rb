@@ -1,12 +1,13 @@
 class CommentsController < ApplicationController
 
-def create
-  @topic = Topic.find(params[:topic_id])
-  @post = @topic.posts.find(params[:post_id])    
+  def create
+    
+    @topic = Topic.find(params[:topic_id])
+    @post = @topic.posts.find(params[:post_id])    
   
 
-  @comment = current_user.comments.build(params[:comment])
-  @comment.post = @post
+    @comment = current_user.comments.build(params[:comment].permit!)
+    @comment.post = @post
 
     if @comment.save
       flash[:notice] = "Comment was created"
@@ -16,5 +17,21 @@ def create
       render 'posts/show'
     end
   end
+
+    def destroy
+      @topic = Topic.find(params[:topic_id])
+      @post = @topic.posts.find(params[:post_id])
+      @comment = @post.comments.find(params[:id])
+
+      authorize @comment
+      if @comment.destroy
+        flash[:notice] = "You successfully destroyed this shit."
+        redirect_to [@topic, @post]
+      else
+        flash[:error] = "Nice try but you blew it, try again."
+        redirect_to [@topic, @post]
+    end
+  end
 end
+
  

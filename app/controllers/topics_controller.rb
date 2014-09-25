@@ -45,6 +45,20 @@ class TopicsController < ApplicationController
      end
    end
 
+   def destroy
+      @topic = Topic.find(params[:id])
+      authorize @topic
+      
+      if @topic.destroy 
+        flash[:notice] = "Topic was successfully destroyed."
+        redirect_to topics_path
+
+      else 
+        flash[:error] = "Destruction Error, Please try destroying it again."
+        render :show
+      end 
+   end
+
    private
 
   def topic_params

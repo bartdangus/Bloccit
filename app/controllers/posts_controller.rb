@@ -47,6 +47,20 @@ class PostsController < ApplicationController
     end
   end
 
+    def destroy
+        @topic = Topic.find(params[:topic_id])
+        @post = @topic.posts.find(params[:post_id])
+        @comment = @post.comments.find(params[:id])
+
+        authorize @comment
+        if @comment.destroy
+          flash[:notice] = "You successfully destroyed this shit."
+          redirect_to [@topic, @post]
+        else
+          flash[:error] = "Nice try but you blew it, try again."
+          redirect_to [@topic, @post]
+    end
+  end
   private
 
   def post_params

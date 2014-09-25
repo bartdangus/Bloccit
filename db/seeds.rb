@@ -2,13 +2,14 @@ require 'faker'
 
 5.times do
   user = User.new(
-    name:     Faker::Name.name,
-    email:    Faker::Internet.email,
-    password: Faker::Lorem.characters(10)
+      name:     Faker::Name.name,
+      email:    Faker::Internet.email,
+      password: Faker::Lorem.characters(10)
   )
   user.skip_confirmation!
   user.save!
 end
+
 users = User.all
 
 15.times do 
@@ -16,6 +17,7 @@ users = User.all
     name:     Faker::Lorem.sentence,
     description: Faker:: Lorem.paragraph
     )
+
  end
  topics = Topic.all 
 
@@ -35,7 +37,8 @@ users = User.all
  100.times do
    Comment.create!(
      post: posts.sample,
-     body: Faker::Lorem.paragraph
+     body: Faker::Lorem.paragraph,
+     user: User.all.sample
    )
  end
 
