@@ -15,6 +15,10 @@ gem 'pry'
    gem 'sqlite3'
  end
 
+ group :test do
+  gem 'rspec-rails', '~> 3.1.0'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
 
@@ -41,6 +45,7 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
 
 gem 'devise'
 gem 'figaro'
