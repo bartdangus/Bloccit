@@ -1,7 +1,7 @@
 describe Vote do
   describe "validations" do
     before do
-      @post = Post.create(title: 'post title', body 'post body')
+      @post = Post.create(title: 'post title', body: 'post body')
       3.times {@post.votes.create(value: 1) }
       2.times {@post.votes.create(value: -1) }
     end
