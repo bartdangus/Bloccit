@@ -1,30 +1,46 @@
-  require 'rails_helper'
+require 'rails_helper'
 
-describe Vote do
+describe Vote do 
   describe "validations" do
-    before do
-      @post = Post.create(title: 'post title', body: 'Post bodies must be pretty long.')
-      3.times { @post.votes.create(value: 1) }
-      2.times { @post.votes.create(value: -1) }
+    describe "value validation" do
+      it "only allows -1 or 1 as values" do
+        v = Vote.new(value: 1)
+        expect(v.valid?).to eq(true)
+
+        v2 = Vote.new(value: -1)
+        expect(v2.valid?).to eq(true)
+
+        bad_v = Vote.new(value: 2)
+        expect(bad_v.valid?).to eq(false)
+      end
     end
-    
-        describe '#up_votes' do
-          it "increases the number of votes with value = 1" do
-            expect( @post.up_votes ).to eq(3)
-          end
-        end
-
-        describe '#down_votes' do
-          it "decreases the number of votes with value = 1" do
-            expect( @post.down_votes ).to eq(2)
-          end
-        end
-
-        describe "#points" do
-          it "returns the sum of all up and down votes" do
-            expect( @post.points ).to eq(1 ) # 3 - 2
-          end
-        end
-    
   end
+
+   describe 'after_save' do
+     it "calls `Post#update_rank` after save" do
+       @post = associated_post
+       vote = Vote.new(value: 1, post: post)
+       expect(post).to receive(:update_rank)
+        vote.save
+     end
+   end
 end
+
+        def associated_post(options={})
+        post_options = {
+          title: 'Post title',
+          body: 'Post bodies must be pretty long.',
+          topic: Topic.create(name: 'Topic name'),
+          user: authenticated_user
+        }.merge(options)
+
+        Post.create(post_options)
+      end
+
+      def authenticated_user(options={})
+        user_options = {email: "email#{rand}@fake.com", password: 'password'}.merge(options)
+        user = User.new(user_options)
+        user.skip_confirmation!
+        user.save
+        user
+      end

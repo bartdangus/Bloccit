@@ -14,3 +14,4 @@ private
     post.update_rank
   end
 end
+
