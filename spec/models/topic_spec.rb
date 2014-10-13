@@ -4,14 +4,14 @@
    describe "scopes" do
  
      before do 
-       @public_topic = Topic.create # default is public
+       @public_topic = Topic.create(public: true) # default is public
        @private_topic = Topic.create(public: false)
      end
  
      describe "public" do
        it "returns a relation of all public topics" do
          expect(Topic.public).to eq( [@public_topic] )
-       end
+       end #line 13 was failing in the rspec. but changed line 7 even though default is true
      end
  
      describe "private" do

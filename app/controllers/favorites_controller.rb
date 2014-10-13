@@ -28,4 +28,4 @@ class FavoritesController < ApplicationController
       redirect_to [@post.topic, @post]
     end
   end
-end
+end 
