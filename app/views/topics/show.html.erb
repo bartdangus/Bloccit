@@ -8,9 +8,10 @@
   <div class="col-md-8">
     <p class="lead"><%= @topic.description %></p>
     <% @posts.each do |post| %>
+     
       <div class="media">
         <%= render partial: 'votes/voter', locals: { post: post } %>
-        <div class="media-body">
+                <div class="media-body">
           <h4 class="media-heading">
             <%= link_to (markdown post.title), [@topic, post] %>
           </h4>
@@ -22,7 +23,8 @@
    </small>
         </div>
       </div>
-    <% end %>
+<% end %>
+
   </div>
  <div class="col-md-4">
    <% if policy(Post.new).create? %>
