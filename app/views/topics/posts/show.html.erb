@@ -15,9 +15,12 @@
     <hr/>
 
     <h2> Comments</h2>
-    
+    <div class='js-comments'>
     <% @post.comments.each do |comment| %> 
     <%= render partial: 'comments/comment', collection: @comments %>
+  </div>
+  <div class='new-comment'>
+  </div>
     <% end%>
     
     <% if policy(Comment.new).create? %>

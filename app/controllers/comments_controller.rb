@@ -5,18 +5,23 @@ class CommentsController < ApplicationController
   def create
     
     @post = Post.find(params[:post_id]) 
-    @topic = @post.topic
+    @comments = @post.comments
   
 
-    @comment = current_user.comments.build(params[:comment].permit!)
+    @comment = current_user.comments.build( comment_params )
     @comment.post = @post
+    @new_comment = Comment.new
+
+    authorize @comment
 
     if @comment.save
       flash[:notice] = "Comment was created"
-      redirect_to [@topic, @post]
     else
       flash[:error] = "There was an error saving the comment. Please try again."
-      render 'posts/show'
+    end
+
+    respond_with(@comment) do |format|
+      format.html { redirect_to [@post.topic, @post]}
     end
   end
 
@@ -31,14 +36,16 @@ class CommentsController < ApplicationController
         flash[:notice] = "You successfully destroyed this shit."
         
       else
-        flash[:error] = "Nice try but you blew it, try again."
-        
-    end
-
-    respond_with(@comment) do |format|
-      format.html { redirect_to [@post.topic, @post] }
+        flash[:error] = "Nice try but you blew it, try again."    
     end
   end
-end
+
+  
+
+    def comment_params
+      params.require(:comment).permit(:body)
+    end
+  end
+
 
  
